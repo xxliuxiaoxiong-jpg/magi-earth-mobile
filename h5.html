@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>麦归文化 · 让一切精彩都有迹可循</title>
+<meta name="description" content="上海麦归文化科技有限公司致力于全球人文历史宣传与认知传播。旗下麦归视频APP、麦归读书、麦归音乐、麦归动漫四大产品矩阵。">
+
+<!-- OG Meta Tags for WeChat Sharing -->
+<meta property="og:title" content="麦归文化 · 让一切精彩都有迹可循">
+<meta property="og:description" content="上海麦归文化科技有限公司致力于全球人文历史宣传与认知传播。旗下麦归视频APP、麦归读书、麦归音乐、麦归动漫四大产品矩阵，以真实影像与地理坐标为核心，让世界触手可及。">
+<meta property="og:image" content="https://xxliuxiaoxiong-jpg.github.io/magi-earth-mobile/images/maigui-company-logo.jpg">
+<meta property="og:url" content="https://xxliuxiaoxiong-jpg.github.io/magi-earth-mobile/h5.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Ma+Shan+Zheng&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+/* ===== Reset & Base ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Noto Serif SC', 'Songti SC', serif;
+  background: #f1efea;
+  color: #0a0a0b;
+  line-height: 1.75;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Design Tokens ===== */
+:root {
+  --ink: #0a0a0b;
+  --paper: #f1efea;
+  --paper-warm: #e8e4dc;
+  --accent-gold: #c9a96e;
+  --accent-red: #b3493b;
+  --accent-blue: #4a7c8f;
+  --accent-green: #5a7a5a;
+  --text-secondary: rgba(10,10,11,0.6);
+  --text-tertiary: rgba(10,10,11,0.35);
+  --max-w: 480px;
+  --section-py: clamp(3rem, 15vh, 6rem);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===== Scroll Animation ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.25s; }
+.reveal-delay-3 { transition-delay: 0.4s; }
+.reveal-delay-4 { transition-delay: 0.55s; }
+
+/* ===== Section Divider ===== */
+.section-divider {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.section-divider::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+  opacity: 0.3;
+}
+
+/* ===== Container ===== */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== Section ===== */
+section {
+  padding: var(--section-py) 0;
+  position: relative;
+}
+
+/* ===== Section Number ===== */
+.section-number {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(4rem, 12vw, 7rem);
+  font-style: italic;
+  color: var(--text-tertiary);
+  line-height: 1;
+  margin-bottom: -0.3em;
+  position: relative;
+  z-index: 0;
+  user-select: none;
+}
+
+/* ===== Typography ===== */
+h1, h2, h3 { font-weight: 700; line-height: 1.3; }
+h2 {
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  margin-bottom: 0.5em;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Hero ===== */
+#hero {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 24px;
+  position: relative;
+}
+#hero .logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+#hero h1 {
+  font-size: clamp(2rem, 7vw, 3rem);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+#hero .tagline {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: clamp(1.2rem, 4vw, 1.6rem);
+  color: var(--accent-gold);
+  margin-top: 12px;
+  letter-spacing: 0.15em;
+}
+#hero .subtitle {
+  font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+  color: var(--text-secondary);
+  margin-top: 20px;
+  max-width: 360px;
+  letter-spacing: 0.05em;
+}
+#hero .scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--text-tertiary);
+  animation: scrollHint 2s ease-in-out infinite;
+}
+@keyframes scrollHint {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+/* ===== About Section ===== */
+#about .company-badge {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--accent-gold);
+  border: 1px solid var(--accent-gold);
+  padding: 4px 14px;
+  margin-bottom: 20px;
+}
+#about .philosophy {
+  font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--accent-red);
+}
+#about p {
+  color: var(--text-secondary);
+  font-size: clamp(0.9rem, 2.8vw, 1rem);
+}
+
+/* ===== Product Cards ===== */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
+}
+.product-card {
+  background: white;
+  padding: 20px 16px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  transition: transform 0.3s var(--ease-out-expo);
+  text-decoration: none;
+  color: var(--ink);
+}
+.product-card:active {
+  transform: scale(0.96);
+}
+.product-card .icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-card .icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.product-card h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.product-card p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ===== Detailed Product Sections ===== */
+.detail-section {
+  border-top: 1px solid rgba(10,10,11,0.06);
+}
+.detail-section .tag {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: 3px;
+  margin-bottom: 16px;
+}
+.detail-section .tag.video { background: rgba(74,124,143,0.12); color: var(--accent-blue); }
+.detail-section .tag.reading { background: rgba(201,169,110,0.15); color: #8a7a4a; }
+.detail-section .tag.music { background: rgba(90,122,90,0.12); color: var(--accent-green); }
+.detail-section .tag.anime { background: rgba(179,73,59,0.1); color: var(--accent-red); }
+
+.detail-section .brand-statement {
+  font-size: clamp(1.2rem, 4vw, 1.6rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+.detail-section .brand-statement .highlight {
+  color: var(--accent-gold);
+}
+
+.detail-section ul {
+  list-style: none;
+  padding: 0;
+}
+.detail-section ul li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  font-size: clamp(0.85rem, 2.6vw, 0.95rem);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.detail-section ul li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  color: var(--accent-gold);
+  font-size: 0.5rem;
+  top: 0.5em;
+}
+
+/* ===== Screenshots Grid ===== */
+.screenshot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 24px;
+}
+.screenshot-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+
+/* ===== Events ===== */
+.events-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+.event-card {
+  background: white;
+  padding: 18px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.event-card .emoji-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  border-radius: 10px;
+}
+.event-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.event-card p {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+/* ===== Contact ===== */
+#contact .contact-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+.contact-item {
+  background: white;
+  padding: 16px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  font-size: 0.9rem;
+}
+.contact-item .label {
+  font-size: 0.7rem;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  margin-bottom: 4px;
+}
+
+/* ===== Closing ===== */
+#closing {
+  text-align: center;
+  padding: clamp(4rem, 20vh, 8rem) 24px;
+}
+#closing .big-quote {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: clamp(1.8rem, 7vw, 3rem);
+  color: var(--accent-gold);
+  margin-bottom: 16px;
+}
+#closing p {
+  color: var(--text-secondary);
+  font-size: clamp(0.85rem, 2.6vw, 0.95rem);
+}
+#closing .signature {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  margin-top: 32px;
+}
+
+/* ===== App Logo ===== */
+.app-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.app-logo-wrap img {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 360px) {
+  .product-grid { grid-template-columns: 1fr; }
+  .screenshot-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<section id="hero">
+  <img class="logo reveal" src="images/maigui-company-logo.jpg" alt="麦归文化" loading="eager">
+  <h1 class="reveal reveal-delay-1">麦归文化</h1>
+  <div class="tagline reveal reveal-delay-2">让一切精彩都有迹可循</div>
+  <p class="subtitle reveal reveal-delay-3">上海麦归文化科技有限公司<br>全球认知的开拓者和领航者</p>
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- ===== About ===== -->
+<section id="about" class="section-divider">
+  <div class="container">
+    <div class="section-number reveal">01</div>
+    <div class="company-badge reveal">ABOUT</div>
+    <h2 class="reveal reveal-delay-1">关于麦归</h2>
+    <div class="philosophy reveal reveal-delay-1">思想、文化、科技以人为本</div>
+    <p class="reveal reveal-delay-2">我们致力于通过认知的加深加强，缩短人与人之间由空间距离产生的隔阂和障碍。以活泼、勇敢、开放、探索、充满想象力的文化内容，进行全球人文历史宣传，促进全球认知传播。</p>
+  </div>
+</section>
+
+<!-- ===== Products Overview ===== -->
+<section id="products" class="section-divider">
+  <div class="container">
+    <div class="section-number reveal">02</div>
+    <div class="company-badge reveal">PRODUCTS</div>
+    <h2 class="reveal reveal-delay-1">产品矩阵</h2>
+    <p class="reveal reveal-delay-2" style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:8px;">四大核心产品平台</p>
+    <div class="product-grid">
+      <a class="product-card reveal reveal-delay-1" href="#video">
+        <div class="icon"><img src="images/maigui-app-logo.png" alt="麦归视频"></div>
+        <h3>麦归视频APP</h3>
+        <p>用影像点亮坐标</p>
+      </a>
+      <a class="product-card reveal reveal-delay-2" href="#reading">
+        <div class="icon"><img src="images/maigui-read-logo.png" alt="麦归读书"></div>
+        <h3>麦归读书</h3>
+        <p>文学思想新领地</p>
+      </a>
+      <a class="product-card reveal reveal-delay-3" href="#music">
+        <div class="icon">
+          <svg viewBox="0 0 40 40" fill="none" width="40" height="40"><circle cx="20" cy="20" r="18" stroke="#5a7a5a" stroke-width="1.2"/><path d="M16 26V16l10-2v10" stroke="#5a7a5a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="26" r="2.5" fill="#5a7a5a"/><circle cx="24" cy="24" r="2.5" fill="#5a7a5a"/></svg>
+        </div>
+        <h3>麦归音乐</h3>
+        <p>坐标+音乐场景</p>
+      </a>
+      <a class="product-card reveal reveal-delay-4" href="#anime">
+        <div class="icon">
+          <svg viewBox="0 0 40 40" fill="none" width="40" height="40"><path d="M8 12h24v16H8V12z" stroke="#b3493b" stroke-width="1.2" rx="2"/><circle cx="16" cy="20" r="3" fill="#b3493b" opacity="0.6"/><circle cx="24" cy="20" r="3" fill="#b3493b" opacity="0.6"/></svg>
+        </div>
+        <h3>麦归动漫</h3>
+        <p>二次元实景平台</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Video APP Detail ===== -->
+<section id="video" class="detail-section section-divider">
+  <div class="container">
+    <div class="section-number reveal">03</div>
+    <div class="tag video reveal">VIDEO</div>
+    <div class="app-logo-wrap reveal">
+      <img src="images/maigui-app-logo.png" alt="麦归视频">
+      <h2 style="margin-bottom:0;">麦归视频APP</h2>
+    </div>
+    <div class="brand-statement reveal reveal-delay-1">用影像点亮坐标<br><span class="highlight">让一切精彩都有迹可循</span></div>
+    <ul class="reveal reveal-delay-2">
+      <li>以真实影像与地理坐标为核心</li>
+      <li>连接优质创作者与出行用户</li>
+      <li>坚持实拍、原生、有温度的内容生态</li>
+      <li>记录与呈现风景、体验、城市的真实面貌</li>
+    </ul>
+    <div class="screenshot-grid reveal reveal-delay-3">
+      <img src="images/maigui-app-1.png" alt="麦归视频截图1" loading="lazy">
+      <img src="images/maigui-app-2.png" alt="麦归视频截图2" loading="lazy">
+      <img src="images/maigui-app-3.png" alt="麦归视频截图3" loading="lazy">
+      <img src="images/maigui-app-4.png" alt="麦归视频截图4" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ===== Reading Detail ===== -->
+<section id="reading" class="detail-section section-divider">
+  <div class="container">
+    <div class="section-number reveal">04</div>
+    <div class="tag reading reveal">READING</div>
+    <div class="app-logo-wrap reveal">
+      <img src="images/maigui-read-logo.png" alt="麦归读书">
+      <h2 style="margin-bottom:0;">麦归读书</h2>
+    </div>
+    <div class="brand-statement reveal reveal-delay-1">文学和思想的<span class="highlight">新领地</span></div>
+    <ul class="reveal reveal-delay-2">
+      <li>面向有全球视野的文学爱好者</li>
+      <li>服务创作者、勇敢者、全球思想者</li>
+      <li>探索新的世界，开辟新的领域</li>
+      <li>欢迎多元文学创作与思想交流</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== Music Detail ===== -->
+<section id="music" class="detail-section section-divider">
+  <div class="container">
+    <div class="section-number reveal">05</div>
+    <div class="tag music reveal">MUSIC</div>
+    <div class="app-logo-wrap reveal">
+      <div class="icon" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--paper-warm);border-radius:12px;">
+        <svg viewBox="0 0 40 40" fill="none" width="36" height="36"><circle cx="20" cy="20" r="18" stroke="#5a7a5a" stroke-width="1.2"/><path d="M16 26V16l10-2v10" stroke="#5a7a5a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="26" r="2.5" fill="#5a7a5a"/><circle cx="24" cy="24" r="2.5" fill="#5a7a5a"/></svg>
+      </div>
+      <h2 style="margin-bottom:0;">麦归音乐</h2>
+    </div>
+    <div class="brand-statement reveal reveal-delay-1">用声音记录城市<br><span class="highlight">用坐标定格旋律</span></div>
+    <ul class="reveal reveal-delay-2">
+      <li>打造可听、可看、可打卡的音乐内容生态</li>
+      <li>连接音乐人、翻唱达人与音乐爱好者</li>
+      <li>歌曲、旋律与地理场景深度绑定</li>
+      <li>通过地图发现城市背景音乐、现场演奏、小众原创</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== Anime Detail ===== -->
+<section id="anime" class="detail-section section-divider">
+  <div class="container">
+    <div class="section-number reveal">06</div>
+    <div class="tag anime reveal">ANIME</div>
+    <div class="app-logo-wrap reveal">
+      <div class="icon" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--paper-warm);border-radius:12px;">
+        <svg viewBox="0 0 40 40" fill="none" width="36" height="36"><path d="M8 12h24v16H8V12z" stroke="#b3493b" stroke-width="1.2"/><circle cx="16" cy="20" r="3" fill="#b3493b" opacity="0.6"/><circle cx="24" cy="20" r="3" fill="#b3493b" opacity="0.6"/></svg>
+      </div>
+      <h2 style="margin-bottom:0;">麦归动漫</h2>
+    </div>
+    <div class="brand-statement reveal reveal-delay-1">每一个经典画面都能被抵达<br><span class="highlight">每一份热爱都有清晰坐标</span></div>
+    <ul class="reveal reveal-delay-2">
+      <li>动漫打卡、实景还原、COS实拍</li>
+      <li>构建二次元与现实世界交融的内容平台</li>
+      <li>通过地理坐标快速找到动漫取景地、实景对比地</li>
+      <li>鼓励真实拍摄、实景体验</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== Events ===== -->
+<section id="events" class="section-divider">
+  <div class="container">
+    <div class="section-number reveal">07</div>
+    <div class="company-badge reveal">EVENTS</div>
+    <h2 class="reveal reveal-delay-1">公司活动</h2>
+    <p class="reveal reveal-delay-1" style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:8px;">定期举办的文化交流活动</p>
+    <div class="events-grid">
+      <div class="event-card reveal reveal-delay-1">
+        <div class="emoji-icon">🏔️</div>
+        <div><h4>户外徒步探索</h4><p>探索自然之美，体验团队协作</p></div>
+      </div>
+      <div class="event-card reveal reveal-delay-2">
+        <div class="emoji-icon">🎵</div>
+        <div><h4>音乐麦田</h4><p>探讨不一样的音乐，欢迎音乐爱好者参与</p></div>
+      </div>
+      <div class="event-card reveal reveal-delay-3">
+        <div class="emoji-icon">🌍</div>
+        <div><h4>动漫地球</h4><p>给动漫加个地球，动漫全球</p></div>
+      </div>
+      <div class="event-card reveal reveal-delay-4">
+        <div class="emoji-icon">💬</div>
+        <div><h4>文化交流沙龙</h4><p>轻松的文化交流平台，分享文化见解</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section id="contact" class="section-divider">
+  <div class="container">
+    <div class="section-number reveal">08</div>
+    <div class="company-badge reveal">CONTACT</div>
+    <h2 class="reveal reveal-delay-1">联系方式</h2>
+    <p class="reveal reveal-delay-1" style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:8px;">欢迎加入我们</p>
+    <div class="contact-grid">
+      <div class="contact-item reveal reveal-delay-1">
+        <div class="label">WEBSITE</div>
+        <div>https://www.magi-earth.com/</div>
+      </div>
+      <div class="contact-item reveal reveal-delay-2">
+        <div class="label">VISION</div>
+        <div>全球认知的开拓者和领航者</div>
+      </div>
+      <div class="contact-item reveal reveal-delay-3">
+        <div class="label">CULTURE</div>
+        <div>年轻、开放、探索</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Closing ===== -->
+<section id="closing">
+  <div class="big-quote reveal">让一切精彩<br>都有迹可循</div>
+  <p class="reveal reveal-delay-1">麦归文化 — 连接世界，记录精彩</p>
+  <div class="signature reveal reveal-delay-2">Magi Earth · Map the moment, meet the world</div>
+</section>
+
+<!-- ===== Intersection Observer ===== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+});
+</script>
+
+</body>
+</html>
