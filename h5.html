@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>麦归文化 · 让一切精彩都有迹可循</title>
 <meta name="description" content="上海麦归文化科技有限公司致力于全球人文历史宣传与认知传播。旗下麦归视频APP、麦归读书、麦归音乐、麦归动漫四大产品矩阵。">
 
@@ -10,21 +10,28 @@
 <meta property="og:title" content="麦归文化 · 让一切精彩都有迹可循">
 <meta property="og:description" content="上海麦归文化科技有限公司致力于全球人文历史宣传与认知传播。旗下麦归视频APP、麦归读书、麦归音乐、麦归动漫四大产品矩阵，以真实影像与地理坐标为核心，让世界触手可及。">
 <meta property="og:image" content="https://xxliuxiaoxiong-jpg.github.io/magi-earth-mobile/images/maigui-company-logo.jpg">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="300">
 <meta property="og:url" content="https://xxliuxiaoxiong-jpg.github.io/magi-earth-mobile/h5.html">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="format-detection" content="telephone=no">
 
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Ma+Shan+Zheng&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;500&display=swap" rel="stylesheet">
+<!-- Font Loading: Chinese CDN + fallback -->
+<link rel="preconnect" href="https://fonts.googleapis.cn">
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin>
+<link href="https://fonts.googleapis.cn/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Ma+Shan+Zheng&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
 /* ===== Reset & Base ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
 body {
-  font-family: 'Noto Serif SC', 'Songti SC', serif;
+  font-family: 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
   background: #f1efea;
   color: #0a0a0b;
   line-height: 1.75;
@@ -46,6 +53,11 @@ body {
   --max-w: 480px;
   --section-py: clamp(3rem, 15vh, 6rem);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --nav-height: 56px;
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
 }
 
 /* ===== Scroll Animation ===== */
@@ -68,7 +80,7 @@ body {
   width: 100%;
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 max(24px, var(--safe-l)) 0 max(24px, var(--safe-r));
 }
 .section-divider::after {
   content: '';
@@ -77,12 +89,13 @@ body {
   background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
   opacity: 0.3;
 }
+section:last-of-type .section-divider::after { display: none; }
 
 /* ===== Container ===== */
 .container {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 max(24px, var(--safe-l)) 0 max(24px, var(--safe-r));
 }
 
 /* ===== Section ===== */
@@ -93,7 +106,7 @@ section {
 
 /* ===== Section Number ===== */
 .section-number {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Georgia', serif;
   font-size: clamp(4rem, 12vw, 7rem);
   font-style: italic;
   color: var(--text-tertiary);
@@ -122,7 +135,7 @@ h2 {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 40px 24px;
+  padding: max(40px, var(--safe-t)) 24px 60px;
   position: relative;
 }
 #hero .logo {
@@ -155,7 +168,7 @@ h2 {
 #hero .scroll-hint {
   position: absolute;
   bottom: 36px;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
   font-size: 0.7rem;
   font-weight: 300;
   letter-spacing: 0.15em;
@@ -170,7 +183,7 @@ h2 {
 /* ===== About Section ===== */
 #about .company-badge {
   display: inline-block;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -203,12 +216,14 @@ h2 {
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-  transition: transform 0.3s var(--ease-out-expo);
+  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo);
   text-decoration: none;
   color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
 }
 .product-card:active {
   transform: scale(0.96);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
 }
 .product-card .icon {
   width: 40px;
@@ -240,7 +255,7 @@ h2 {
 }
 .detail-section .tag {
   display: inline-block;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
   font-size: 0.6rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -284,19 +299,173 @@ h2 {
   top: 0.5em;
 }
 
-/* ===== Screenshots Grid ===== */
-.screenshot-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 24px;
-}
-.screenshot-grid img {
+/* ===== Carousel ===== */
+.carousel {
+  position: relative;
   width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 24px;
+  background: var(--paper-warm);
+  aspect-ratio: 9 / 16;
+  max-height: 75vh;
+  touch-action: pan-y;
+  user-select: none;
 }
+.carousel-track {
+  display: flex;
+  transition: transform 0.35s var(--ease-out-expo);
+  height: 100%;
+  will-change: transform;
+}
+.carousel-track.dragging {
+  transition: none;
+}
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper-warm);
+  cursor: pointer;
+}
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+.carousel-nav {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+  align-items: center;
+}
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out-expo);
+  -webkit-tap-highlight-color: transparent;
+}
+.carousel-dot.active {
+  background: #fff;
+  width: 20px;
+  border-radius: 3px;
+}
+.carousel-hint {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  background: rgba(0,0,0,0.45);
+  color: rgba(255,255,255,0.85);
+  font-size: 0.6rem;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  padding: 3px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out-expo);
+  pointer-events: none;
+}
+.carousel-hint.show {
+  opacity: 1;
+}
+
+/* ===== Lightbox ===== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-out-expo);
+  padding: var(--safe-t) 0 var(--safe-b);
+}
+.lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.lightbox img {
+  max-width: 94%;
+  max-height: 82vh;
+  object-fit: contain;
+  border-radius: 6px;
+  user-select: none;
+  -webkit-user-drag: none;
+  will-change: transform;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+.lightbox-close {
+  position: absolute;
+  top: max(16px, var(--safe-t));
+  right: max(16px, var(--safe-r));
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  -webkit-tap-highlight-color: transparent;
+}
+.lightbox-close:active {
+  background: rgba(255,255,255,0.2);
+}
+.lightbox-counter {
+  position: absolute;
+  bottom: max(28px, var(--safe-b));
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.5);
+  font-size: 0.8rem;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  letter-spacing: 0.08em;
+}
+.lightbox-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: #fff;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s;
+}
+.lightbox-btn:active { background: rgba(255,255,255,0.18); }
+.lightbox-btn-prev { left: max(12px, var(--safe-l)); }
+.lightbox-btn-next { right: max(12px, var(--safe-r)); }
 
 /* ===== Events ===== */
 .events-grid {
@@ -312,6 +481,11 @@ h2 {
   display: flex;
   align-items: center;
   gap: 14px;
+  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo);
+}
+.event-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.04);
 }
 .event-card .emoji-icon {
   font-size: 1.6rem;
@@ -349,7 +523,7 @@ h2 {
 }
 .contact-item .label {
   font-size: 0.7rem;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
   letter-spacing: 0.08em;
   color: var(--text-tertiary);
   margin-bottom: 4px;
@@ -358,7 +532,7 @@ h2 {
 /* ===== Closing ===== */
 #closing {
   text-align: center;
-  padding: clamp(4rem, 20vh, 8rem) 24px;
+  padding: clamp(4rem, 20vh, 8rem) 24px max(calc(clamp(4rem, 20vh, 8rem) + 20px), calc(clamp(4rem, 20vh, 8rem) + var(--nav-height) + var(--safe-b) + 20px));
 }
 #closing .big-quote {
   font-family: 'Ma Shan Zheng', cursive;
@@ -371,7 +545,7 @@ h2 {
   font-size: clamp(0.85rem, 2.6vw, 0.95rem);
 }
 #closing .signature {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', 'Georgia', serif;
   font-style: italic;
   font-size: 0.85rem;
   color: var(--text-tertiary);
@@ -393,18 +567,142 @@ h2 {
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
+/* ===== Bottom Navigation ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(241,239,234,0.88);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border-top: 1px solid rgba(10,10,11,0.06);
+  display: flex;
+  padding: 6px 0 calc(6px + var(--safe-b));
+  transform: translateY(0);
+  transition: transform 0.4s var(--ease-out-expo);
+}
+.bottom-nav.hidden {
+  transform: translateY(100%);
+}
+.bottom-nav a {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 0 4px;
+  text-decoration: none;
+  color: var(--text-tertiary);
+  font-size: 0.55rem;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  letter-spacing: 0.06em;
+  transition: color 0.3s var(--ease-out-expo);
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+.bottom-nav a .nav-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+.bottom-nav a.active {
+  color: var(--accent-gold);
+}
+.bottom-nav a.active .nav-icon {
+  transform: scale(1.1);
+}
+
+/* ===== Loading Screen ===== */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s var(--ease-out-expo);
+}
+.page-loader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+.page-loader .loader-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 24px;
+  opacity: 0.8;
+}
+.page-loader .loader-bar {
+  width: 120px;
+  height: 2px;
+  background: var(--paper-warm);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.page-loader .loader-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-gold), #d4b87a);
+  border-radius: 2px;
+  transition: width 1.5s var(--ease-out-expo);
+}
+
+/* ===== Image Loading Placeholder ===== */
+.img-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-warm);
+}
+.img-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 360px) {
   .product-grid { grid-template-columns: 1fr; }
-  .screenshot-grid { grid-template-columns: 1fr; }
+  .carousel { aspect-ratio: 3 / 5; }
+}
+@media (min-width: 768px) {
+  .carousel { max-width: 400px; margin-left: auto; margin-right: auto; }
+  .bottom-nav { max-width: 480px; left: 50%; transform: translateX(-50%); }
+  .bottom-nav.hidden { transform: translateX(-50%) translateY(100%); }
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .carousel-track { transition: none; }
+  .page-loader { display: none; }
+  html { scroll-behavior: auto; }
+  .scroll-hint { display: none; }
 }
 </style>
 </head>
 <body>
 
+<!-- Loading Screen -->
+<div class="page-loader" id="pageLoader">
+  <img class="loader-logo" src="images/maigui-company-logo.jpg" alt="麦归文化" loading="eager">
+  <div class="loader-bar"><div class="loader-bar-fill" id="loaderFill"></div></div>
+</div>
+
 <!-- ===== Hero ===== -->
 <section id="hero">
-  <img class="logo reveal" src="images/maigui-company-logo.jpg" alt="麦归文化" loading="eager">
+  <img class="logo reveal" src="images/maigui-company-logo.jpg" alt="麦归文化" loading="eager" width="100" height="100">
   <h1 class="reveal reveal-delay-1">麦归文化</h1>
   <div class="tagline reveal reveal-delay-2">让一切精彩都有迹可循</div>
   <p class="subtitle reveal reveal-delay-3">上海麦归文化科技有限公司<br>全球认知的开拓者和领航者</p>
@@ -431,12 +729,12 @@ h2 {
     <p class="reveal reveal-delay-2" style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:8px;">四大核心产品平台</p>
     <div class="product-grid">
       <a class="product-card reveal reveal-delay-1" href="#video">
-        <div class="icon"><img src="images/maigui-app-logo.png" alt="麦归视频"></div>
+        <div class="icon"><img src="images/maigui-app-logo.jpg" alt="麦归视频" width="40" height="40"></div>
         <h3>麦归视频APP</h3>
         <p>用影像点亮坐标</p>
       </a>
       <a class="product-card reveal reveal-delay-2" href="#reading">
-        <div class="icon"><img src="images/maigui-read-logo.png" alt="麦归读书"></div>
+        <div class="icon"><img src="images/maigui-read-logo.png" alt="麦归读书" width="40" height="40"></div>
         <h3>麦归读书</h3>
         <p>文学思想新领地</p>
       </a>
@@ -449,7 +747,7 @@ h2 {
       </a>
       <a class="product-card reveal reveal-delay-4" href="#anime">
         <div class="icon">
-          <svg viewBox="0 0 40 40" fill="none" width="40" height="40"><path d="M8 12h24v16H8V12z" stroke="#b3493b" stroke-width="1.2" rx="2"/><circle cx="16" cy="20" r="3" fill="#b3493b" opacity="0.6"/><circle cx="24" cy="20" r="3" fill="#b3493b" opacity="0.6"/></svg>
+          <svg viewBox="0 0 40 40" fill="none" width="40" height="40"><path d="M8 12h24v16H8V12z" stroke="#b3493b" stroke-width="1.2"/><circle cx="16" cy="20" r="3" fill="#b3493b" opacity="0.6"/><circle cx="24" cy="20" r="3" fill="#b3493b" opacity="0.6"/></svg>
         </div>
         <h3>麦归动漫</h3>
         <p>二次元实景平台</p>
@@ -464,7 +762,7 @@ h2 {
     <div class="section-number reveal">03</div>
     <div class="tag video reveal">VIDEO</div>
     <div class="app-logo-wrap reveal">
-      <img src="images/maigui-app-logo.png" alt="麦归视频">
+      <img src="images/maigui-app-logo.jpg" alt="麦归视频" width="48" height="48">
       <h2 style="margin-bottom:0;">麦归视频APP</h2>
     </div>
     <div class="brand-statement reveal reveal-delay-1">用影像点亮坐标<br><span class="highlight">让一切精彩都有迹可循</span></div>
@@ -474,11 +772,30 @@ h2 {
       <li>坚持实拍、原生、有温度的内容生态</li>
       <li>记录与呈现风景、体验、城市的真实面貌</li>
     </ul>
-    <div class="screenshot-grid reveal reveal-delay-3">
-      <img src="images/maigui-app-1.png" alt="麦归视频截图1" loading="lazy">
-      <img src="images/maigui-app-2.png" alt="麦归视频截图2" loading="lazy">
-      <img src="images/maigui-app-3.png" alt="麦归视频截图3" loading="lazy">
-      <img src="images/maigui-app-4.png" alt="麦归视频截图4" loading="lazy">
+
+    <!-- Carousel -->
+    <div class="carousel reveal reveal-delay-3" id="screenshotCarousel">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-slide" data-index="0">
+          <img src="images/maigui-app-1.jpg" alt="麦归视频截图-首页" loading="lazy">
+        </div>
+        <div class="carousel-slide" data-index="1">
+          <img src="images/maigui-app-2.jpg" alt="麦归视频截图-内容" loading="lazy">
+        </div>
+        <div class="carousel-slide" data-index="2">
+          <img src="images/maigui-app-3.jpg" alt="麦归视频截图-发现" loading="lazy">
+        </div>
+        <div class="carousel-slide" data-index="3">
+          <img src="images/maigui-app-4.jpg" alt="麦归视频截图-个人" loading="lazy">
+        </div>
+      </div>
+      <div class="carousel-nav" id="carouselNav">
+        <button class="carousel-dot active" data-slide="0" aria-label="第1张"></button>
+        <button class="carousel-dot" data-slide="1" aria-label="第2张"></button>
+        <button class="carousel-dot" data-slide="2" aria-label="第3张"></button>
+        <button class="carousel-dot" data-slide="3" aria-label="第4张"></button>
+      </div>
+      <div class="carousel-hint" id="carouselHint">点击查看大图</div>
     </div>
   </div>
 </section>
@@ -489,7 +806,7 @@ h2 {
     <div class="section-number reveal">04</div>
     <div class="tag reading reveal">READING</div>
     <div class="app-logo-wrap reveal">
-      <img src="images/maigui-read-logo.png" alt="麦归读书">
+      <img src="images/maigui-read-logo.png" alt="麦归读书" width="48" height="48">
       <h2 style="margin-bottom:0;">麦归读书</h2>
     </div>
     <div class="brand-statement reveal reveal-delay-1">文学和思想的<span class="highlight">新领地</span></div>
@@ -603,19 +920,367 @@ h2 {
   <div class="signature reveal reveal-delay-2">Magi Earth · Map the moment, meet the world</div>
 </section>
 
-<!-- ===== Intersection Observer ===== -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+<!-- ===== Bottom Navigation ===== -->
+<nav class="bottom-nav" id="bottomNav" aria-label="页面导航">
+  <a href="#about" data-section="about">
+    <span class="nav-icon">●</span>
+    关于
+  </a>
+  <a href="#products" data-section="products">
+    <span class="nav-icon">◆</span>
+    产品
+  </a>
+  <a href="#video" data-section="video">
+    <span class="nav-icon">▶</span>
+    视频
+  </a>
+  <a href="#events" data-section="events">
+    <span class="nav-icon">✦</span>
+    活动
+  </a>
+  <a href="#contact" data-section="contact">
+    <span class="nav-icon">✉</span>
+    联系
+  </a>
+</nav>
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-});
+<!-- ===== Lightbox ===== -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <button class="lightbox-btn lightbox-btn-prev" id="lightboxPrev">‹</button>
+  <img id="lightboxImg" src="" alt="">
+  <button class="lightbox-btn lightbox-btn-next" id="lightboxNext">›</button>
+  <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
+
+<!-- ===== JavaScript ===== -->
+<script>
+(function() {
+  'use strict';
+
+  /* ---------- Loading Screen ---------- */
+  (function initLoader() {
+    var loader = document.getElementById('pageLoader');
+    var fill = document.getElementById('loaderFill');
+    if (!loader || !fill) return;
+    requestAnimationFrame(function() {
+      fill.style.width = '70%';
+    });
+    window.addEventListener('load', function() {
+      fill.style.width = '100%';
+      setTimeout(function() {
+        loader.classList.add('fade-out');
+        setTimeout(function() { loader.style.display = 'none'; }, 600);
+      }, 400);
+    });
+    // Fallback: hide loader after 5s regardless
+    setTimeout(function() {
+      if (!loader.classList.contains('fade-out')) {
+        loader.classList.add('fade-out');
+        setTimeout(function() { loader.style.display = 'none'; }, 600);
+      }
+    }, 5000);
+  })();
+
+  /* ---------- Reveal Animation ---------- */
+  (function initReveal() {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      observer.observe(el);
+    });
+  })();
+
+  /* ---------- Carousel ---------- */
+  (function initCarousel() {
+    var track = document.getElementById('carouselTrack');
+    var nav = document.getElementById('carouselNav');
+    var hint = document.getElementById('carouselHint');
+    if (!track || !nav) return;
+
+    var slides = track.querySelectorAll('.carousel-slide');
+    var dots = nav.querySelectorAll('.carousel-dot');
+    var total = slides.length;
+    var current = 0;
+    var startX = 0, startY = 0;
+    var isDragging = false;
+    var dragDelta = 0;
+
+    function goTo(index) {
+      if (index < 0) index = 0;
+      if (index >= total) index = total - 1;
+      if (index === current && track.dataset.dragging !== 'true') return;
+      current = index;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dots.forEach(function(d, i) {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    // Dot clicks
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        goTo(parseInt(this.getAttribute('data-slide')));
+      });
+    });
+
+    // Slide click -> lightbox
+    slides.forEach(function(slide, i) {
+      slide.addEventListener('click', function() {
+        openLightbox(i);
+      });
+    });
+
+    // Touch events
+    track.addEventListener('touchstart', function(e) {
+      var t = e.touches[0];
+      startX = t.clientX;
+      startY = t.clientY;
+      isDragging = false;
+      dragDelta = 0;
+      track.dataset.dragging = 'true';
+    }, { passive: true });
+
+    track.addEventListener('touchmove', function(e) {
+      var t = e.touches[0];
+      var dx = t.clientX - startX;
+      var dy = t.clientY - startY;
+      if (!isDragging && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
+        isDragging = true;
+        track.classList.add('dragging');
+      }
+      if (!isDragging) return;
+      dragDelta = dx;
+      var baseOffset = -(current * track.offsetWidth);
+      track.style.transform = 'translateX(' + (baseOffset + dx) + 'px)';
+    }, { passive: true });
+
+    track.addEventListener('touchend', function() {
+      track.dataset.dragging = 'false';
+      track.classList.remove('dragging');
+      if (!isDragging) return;
+      var threshold = track.offsetWidth * 0.2;
+      if (dragDelta < -threshold && current < total - 1) {
+        goTo(current + 1);
+      } else if (dragDelta > threshold && current > 0) {
+        goTo(current - 1);
+      } else {
+        goTo(current);
+      }
+      isDragging = false;
+      dragDelta = 0;
+    }, { passive: true });
+
+    // Mouse drag (desktop)
+    track.addEventListener('mousedown', function(e) {
+      startX = e.clientX;
+      isDragging = false;
+      dragDelta = 0;
+      track.dataset.dragging = 'true';
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (track.dataset.dragging !== 'true') return;
+      var dx = e.clientX - startX;
+      if (!isDragging && Math.abs(dx) > 10) {
+        isDragging = true;
+        track.classList.add('dragging');
+      }
+      if (!isDragging) return;
+      dragDelta = dx;
+      var baseOffset = -(current * track.offsetWidth);
+      track.style.transform = 'translateX(' + (baseOffset + dx) + 'px)';
+    });
+
+    document.addEventListener('mouseup', function() {
+      if (track.dataset.dragging !== 'true') return;
+      track.dataset.dragging = 'false';
+      track.classList.remove('dragging');
+      if (!isDragging) return;
+      var threshold = track.offsetWidth * 0.2;
+      if (dragDelta < -threshold && current < total - 1) {
+        goTo(current + 1);
+      } else if (dragDelta > threshold && current > 0) {
+        goTo(current - 1);
+      } else {
+        goTo(current);
+      }
+      isDragging = false;
+      dragDelta = 0;
+    });
+
+    // Show hint briefly
+    if (hint) {
+      setTimeout(function() { hint.classList.add('show'); }, 1000);
+      setTimeout(function() { hint.classList.remove('show'); }, 4000);
+    }
+  })();
+
+  /* ---------- Lightbox ---------- */
+  (function initLightbox() {
+    var lb = document.getElementById('lightbox');
+    var img = document.getElementById('lightboxImg');
+    var counter = document.getElementById('lightboxCounter');
+    var closeBtn = document.getElementById('lightboxClose');
+    var prevBtn = document.getElementById('lightboxPrev');
+    var nextBtn = document.getElementById('lightboxNext');
+
+    var images = [
+      'images/maigui-app-1.jpg',
+      'images/maigui-app-2.jpg',
+      'images/maigui-app-3.jpg',
+      'images/maigui-app-4.jpg'
+    ];
+    var current = 0;
+    var isOpen = false;
+
+    window.openLightbox = function(index) {
+      current = index;
+      img.src = images[current];
+      updateCounter();
+      lb.classList.add('open');
+      isOpen = true;
+    };
+
+    function updateCounter() {
+      counter.textContent = (current + 1) + ' / ' + images.length;
+    }
+
+    function close() {
+      lb.classList.remove('open');
+      isOpen = false;
+    }
+
+    function prev() {
+      current = (current - 1 + images.length) % images.length;
+      img.src = images[current];
+      updateCounter();
+    }
+
+    function next() {
+      current = (current + 1) % images.length;
+      img.src = images[current];
+      updateCounter();
+    }
+
+    closeBtn.addEventListener('click', close);
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    // Click outside image to close
+    lb.addEventListener('click', function(e) {
+      if (e.target === lb) close();
+    });
+
+    // Touch swipe in lightbox
+    var lx = 0;
+    lb.addEventListener('touchstart', function(e) {
+      lx = e.touches[0].clientX;
+    }, { passive: true });
+    lb.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - lx;
+      if (Math.abs(dx) > 50) {
+        if (dx < 0) next();
+        else prev();
+      }
+    }, { passive: true });
+
+    // Keyboard
+    document.addEventListener('keydown', function(e) {
+      if (!isOpen) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    });
+  })();
+
+  /* ---------- Bottom Navigation ---------- */
+  (function initBottomNav() {
+    var nav = document.getElementById('bottomNav');
+    var links = nav.querySelectorAll('a');
+    var sections = [];
+    var lastScrollY = window.scrollY;
+    var ticking = false;
+
+    // Gather section elements
+    links.forEach(function(link) {
+      var id = link.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) sections.push({ id: id, el: el, link: link });
+    });
+
+    function updateActive() {
+      var scrollY = window.scrollY;
+      var viewH = window.innerHeight;
+      var activeId = sections[0] ? sections[0].id : null;
+
+      sections.forEach(function(s) {
+        var rect = s.el.getBoundingClientRect();
+        // Section is "active" if its middle is in the viewport
+        var mid = rect.top + rect.height / 2;
+        if (mid > 0 && mid < viewH) {
+          activeId = s.id;
+        }
+      });
+
+      links.forEach(function(l) { l.classList.remove('active'); });
+      sections.forEach(function(s) {
+        if (s.id === activeId) s.link.classList.add('active');
+      });
+    }
+
+    // Hide/show nav on scroll
+    function onScroll() {
+      var sy = window.scrollY;
+      var docH = document.documentElement.scrollHeight;
+      var winH = window.innerHeight;
+
+      if (sy + winH >= docH - 20) {
+        // Near bottom -> hide nav
+        nav.classList.add('hidden');
+      } else if (sy < lastScrollY) {
+        // Scrolling up -> show nav
+        nav.classList.remove('hidden');
+      } else if (sy > lastScrollY && sy > 100) {
+        // Scrolling down -> hide nav
+        nav.classList.add('hidden');
+      }
+
+      lastScrollY = sy;
+
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          updateActive();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateActive();
+
+    // Smooth scroll for nav links
+    links.forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var id = this.getAttribute('href').slice(1);
+        var target = document.getElementById(id);
+        if (target) {
+          // Briefly show nav
+          nav.classList.remove('hidden');
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  })();
+
+})();
 </script>
 
 </body>
