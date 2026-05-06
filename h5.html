@@ -299,9 +299,8 @@ h2 {
   top: 0.5em;
 }
 
-/* ===== Carousel ===== */
-.carousel {
-  position: relative;
+/* ===== App Screenshot ===== */
+.app-screenshot {
   width: 100%;
   border-radius: 12px;
   overflow: hidden;
@@ -309,85 +308,18 @@ h2 {
   background: var(--paper-warm);
   aspect-ratio: 3 / 7;
   max-height: 70vh;
-  touch-action: pan-x pinch-zoom;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   user-select: none;
 }
-.carousel-track {
-  display: flex;
-  transition: transform 0.35s var(--ease-out-expo);
+.app-screenshot img {
+  width: 100%;
   height: 100%;
-  will-change: transform;
-}
-.carousel-track.dragging {
-  transition: none;
-}
-.carousel-slide {
-  min-width: 100%;
-  height: 100%;
-  flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
-  background: var(--paper-warm);
-  cursor: pointer;
-}
-.carousel-slide img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  object-fit: contain;
   -webkit-user-drag: none;
   user-select: none;
-}
-.carousel-nav {
-  position: absolute;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-  z-index: 2;
-  align-items: center;
-}
-.carousel-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.5);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: all 0.3s var(--ease-out-expo);
-  -webkit-tap-highlight-color: transparent;
-}
-.carousel-dot.active {
-  background: #fff;
-  width: 20px;
-  border-radius: 3px;
-}
-.carousel-hint {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 2;
-  background: rgba(0,0,0,0.45);
-  color: rgba(255,255,255,0.85);
-  font-size: 0.6rem;
-  font-family: 'IBM Plex Mono', 'Courier New', monospace;
-  padding: 3px 10px;
-  border-radius: 12px;
-  letter-spacing: 0.05em;
-  opacity: 0;
-  transition: opacity 0.4s var(--ease-out-expo);
-  pointer-events: none;
-}
-.carousel-hint.show {
-  opacity: 1;
 }
 
 /* ===== Lightbox ===== */
@@ -679,10 +611,10 @@ h2 {
 /* ===== Responsive ===== */
 @media (max-width: 360px) {
   .product-grid { grid-template-columns: 1fr; }
-  .carousel { aspect-ratio: 3 / 7; max-height: 65vh; }
+  .app-screenshot { aspect-ratio: 3 / 7; max-height: 65vh; }
 }
 @media (min-width: 768px) {
-  .carousel { max-width: 400px; margin-left: auto; margin-right: auto; }
+  .app-screenshot { max-width: 400px; margin-left: auto; margin-right: auto; }
   .bottom-nav { max-width: 480px; left: 50%; transform: translateX(-50%); }
   .bottom-nav.hidden { transform: translateX(-50%) translateY(100%); }
 }
@@ -690,7 +622,6 @@ h2 {
 /* ===== Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
-  .carousel-track { transition: none; }
   .page-loader { display: none; }
   html { scroll-behavior: auto; }
   .scroll-hint { display: none; }
@@ -778,29 +709,9 @@ h2 {
       <li>记录与呈现风景、体验、城市的真实面貌</li>
     </ul>
 
-    <!-- Carousel -->
-    <div class="carousel reveal reveal-delay-3" id="screenshotCarousel">
-      <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-slide" data-index="0">
-          <img src="images/maigui-app-1.jpg" alt="麦归视频截图-首页" loading="lazy">
-        </div>
-        <div class="carousel-slide" data-index="1">
-          <img src="images/maigui-app-2.jpg" alt="麦归视频截图-内容" loading="lazy">
-        </div>
-        <div class="carousel-slide" data-index="2">
-          <img src="images/maigui-app-3.jpg" alt="麦归视频截图-发现" loading="lazy">
-        </div>
-        <div class="carousel-slide" data-index="3">
-          <img src="images/maigui-app-4.jpg" alt="麦归视频截图-个人" loading="lazy">
-        </div>
-      </div>
-      <div class="carousel-nav" id="carouselNav">
-        <button class="carousel-dot active" data-slide="0" aria-label="第1张"></button>
-        <button class="carousel-dot" data-slide="1" aria-label="第2张"></button>
-        <button class="carousel-dot" data-slide="2" aria-label="第3张"></button>
-        <button class="carousel-dot" data-slide="3" aria-label="第4张"></button>
-      </div>
-      <div class="carousel-hint" id="carouselHint">点击查看大图</div>
+    <!-- App Screenshot -->
+    <div class="app-screenshot reveal reveal-delay-3" onclick="openLightbox(0)">
+      <img src="images/maigui-app-1.jpg" alt="麦归视频截图-首页" loading="lazy">
     </div>
   </div>
 </section>
@@ -1001,130 +912,6 @@ h2 {
     });
   })();
 
-  /* ---------- Carousel ---------- */
-  (function initCarousel() {
-    var track = document.getElementById('carouselTrack');
-    var nav = document.getElementById('carouselNav');
-    var hint = document.getElementById('carouselHint');
-    if (!track || !nav) return;
-
-    var slides = track.querySelectorAll('.carousel-slide');
-    var dots = nav.querySelectorAll('.carousel-dot');
-    var total = slides.length;
-    var current = 0;
-    var startX = 0, startY = 0;
-    var isDragging = false;
-    var dragDelta = 0;
-
-    function goTo(index) {
-      if (index < 0) index = 0;
-      if (index >= total) index = total - 1;
-      if (index === current && track.dataset.dragging !== 'true') return;
-      current = index;
-      track.style.transform = 'translateX(-' + (current * 100) + '%)';
-      dots.forEach(function(d, i) {
-        d.classList.toggle('active', i === current);
-      });
-    }
-
-    // Dot clicks
-    dots.forEach(function(dot) {
-      dot.addEventListener('click', function() {
-        goTo(parseInt(this.getAttribute('data-slide')));
-      });
-    });
-
-    // Slide click -> lightbox
-    slides.forEach(function(slide, i) {
-      slide.addEventListener('click', function() {
-        openLightbox(i);
-      });
-    });
-
-    // Touch events
-    track.addEventListener('touchstart', function(e) {
-      var t = e.touches[0];
-      startX = t.clientX;
-      startY = t.clientY;
-      isDragging = false;
-      dragDelta = 0;
-      track.dataset.dragging = 'true';
-    }, { passive: true });
-
-    track.addEventListener('touchmove', function(e) {
-      var t = e.touches[0];
-      var dx = t.clientX - startX;
-      var dy = t.clientY - startY;
-      if (!isDragging && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
-        isDragging = true;
-        track.classList.add('dragging');
-      }
-      if (!isDragging) return;
-      dragDelta = dx;
-      var baseOffset = -(current * track.offsetWidth);
-      track.style.transform = 'translateX(' + (baseOffset + dx) + 'px)';
-    }, { passive: true });
-
-    track.addEventListener('touchend', function() {
-      track.dataset.dragging = 'false';
-      track.classList.remove('dragging');
-      if (!isDragging) return;
-      var threshold = track.offsetWidth * 0.2;
-      if (dragDelta < -threshold && current < total - 1) {
-        goTo(current + 1);
-      } else if (dragDelta > threshold && current > 0) {
-        goTo(current - 1);
-      } else {
-        goTo(current);
-      }
-      isDragging = false;
-      dragDelta = 0;
-    }, { passive: true });
-
-    // Mouse drag (desktop)
-    track.addEventListener('mousedown', function(e) {
-      startX = e.clientX;
-      isDragging = false;
-      dragDelta = 0;
-      track.dataset.dragging = 'true';
-    });
-
-    document.addEventListener('mousemove', function(e) {
-      if (track.dataset.dragging !== 'true') return;
-      var dx = e.clientX - startX;
-      if (!isDragging && Math.abs(dx) > 10) {
-        isDragging = true;
-        track.classList.add('dragging');
-      }
-      if (!isDragging) return;
-      dragDelta = dx;
-      var baseOffset = -(current * track.offsetWidth);
-      track.style.transform = 'translateX(' + (baseOffset + dx) + 'px)';
-    });
-
-    document.addEventListener('mouseup', function() {
-      if (track.dataset.dragging !== 'true') return;
-      track.dataset.dragging = 'false';
-      track.classList.remove('dragging');
-      if (!isDragging) return;
-      var threshold = track.offsetWidth * 0.2;
-      if (dragDelta < -threshold && current < total - 1) {
-        goTo(current + 1);
-      } else if (dragDelta > threshold && current > 0) {
-        goTo(current - 1);
-      } else {
-        goTo(current);
-      }
-      isDragging = false;
-      dragDelta = 0;
-    });
-
-    // Show hint briefly
-    if (hint) {
-      setTimeout(function() { hint.classList.add('show'); }, 1000);
-      setTimeout(function() { hint.classList.remove('show'); }, 4000);
-    }
-  })();
 
   /* ---------- Lightbox ---------- */
   (function initLightbox() {
